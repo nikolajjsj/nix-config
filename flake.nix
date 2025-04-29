@@ -8,12 +8,13 @@
   outputs = { self, nixpkgs, ... }:
     let
       lib = nixpkgs.lib;
-    in {
-    nixosConfigurations = {
-      morpheus = lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [ ./machines/morpheus/default.nix ];
+    in
+    {
+      nixosConfigurations = {
+        morpheus = lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [ ./machines/morpheus/default.nix ];
+        };
       };
     };
-  };
 }
