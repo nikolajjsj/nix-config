@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -32,6 +33,7 @@
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     git
+    neovim
     vim
     zfs
   ];
