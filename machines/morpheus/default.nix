@@ -10,6 +10,7 @@
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs = {
     forceImportRoot = true;
+    extraPools = [ "rust" ];
   };
   services.zfs.autoScrub.enable = true;
   services.zfs.autoSnapshot.enable = true;
