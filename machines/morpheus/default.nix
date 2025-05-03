@@ -35,7 +35,9 @@
     extraGroups = [ "wheel" ];
   };
   # Define a 'media' user account.
-  users.users.multimedia = { };
+  users.users.multimedia = {
+    isNormalUser = true;
+  };
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
