@@ -47,6 +47,12 @@
     enable = true;
     openFirewall = true;
   };
+  services.immich = {
+    enable = true;
+    port = 2283;
+    openFirewall = true;
+    mediaLocation = "/mnt/photos";
+  };
 
   system.stateVersion = "24.11"; # Did you read the comment?
 
