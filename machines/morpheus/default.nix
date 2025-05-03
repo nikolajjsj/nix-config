@@ -83,8 +83,6 @@
   };
   services.prowlarr = {
     enable = true;
-    user = "media";
-    group = "media";
     openFirewall = true;
   };
   services.radarr = {
