@@ -34,12 +34,19 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
+  # Define a 'media' user account.
+  users.users.media = { };
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     git
     neovim
     vim
+    intel-gpu-tools
+    # Jellyfin
+    pkgs.jellyfin
+    pkgs.jellyfin-web
+    pkgs.jellyfin-ffmpeg
   ];
 
   # Services
@@ -52,6 +59,59 @@
     port = 2283;
     openFirewall = true;
     mediaLocation = "/mnt/photos";
+  };
+  services.jellyfin = {
+    enable = true;
+    user = "media";
+    group = "media";
+    openFirewall = true;
+    dataDir = "/mnt/media";
+  };
+  services.deluge = {
+    user = "media";
+    group = "media";
+    dataDir = "/mnt/media/downloads";
+    web = {
+      enable = true;
+      openFirewall = true;
+    };
+    declarative = true;
+    openFirewall = true;
+    config = {
+      enabled_plugins = [ "Label" ];
+    };
+  };
+  services.prowlarr = {
+    enable = true;
+    user = "media";
+    group = "media";
+    openFirewall = true;
+  };
+  services.radarr = {
+    enable = true;
+    user = "media";
+    group = "media";
+    openFirewall = true;
+  };
+  services.sonarr = {
+    enable = true;
+    user = "media";
+    group = "media";
+    openFirewall = true;
+  };
+
+  # Jellyfin hardware acceleration
+  systemd.services.jellyfin.environment.LIBVA_DRIVER_NAME = "iHD";
+  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # For Broadwell (2014) or newer processors. LIBVA_DRIVER_NAME=iHD
+      libva-vdpau-driver # Previously vaapiVdpau
+      intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
+      vpl-gpu-rt # QSV on 11th gen or newer
+      intel-ocl # OpenCL support
+    ];
   };
 
   system.stateVersion = "24.11"; # Did you read the comment?
