@@ -10,6 +10,7 @@
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
   services.zfs.autoScrub.enable = true;
+  services.zfs.autoSnapshot.enable = true;
   boot.loader.grub = {
     enable = true;
     zfsSupport = true;
