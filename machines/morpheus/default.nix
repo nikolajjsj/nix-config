@@ -15,9 +15,10 @@
     enable = true;
     zfsSupport = true;
     efiSupport = true;
-    device = "nodev";
+    efiInstallAsRemovable = true;
     mirroredBoots = [
-      { devices = [ "/dev/disk/by-uuid/93E0-0981" ]; path = "/boot-fallback"; }
+      { devices = [ "nodev" ]; path = "/boot"; }
+      { devices = [ "nodev" ]; path = "/boot-fallback"; }
     ];
   };
 
