@@ -35,7 +35,7 @@
     extraGroups = [ "wheel" ];
   };
   # Define a 'media' user account.
-  users.users.media = { };
+  users.users.multimedia = { };
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
@@ -62,14 +62,12 @@
   };
   services.jellyfin = {
     enable = true;
-    user = "media";
-    group = "media";
+    user = "multimedia";
     openFirewall = true;
     dataDir = "/mnt/media";
   };
   services.deluge = {
-    user = "media";
-    group = "media";
+    user = "multimedia";
     dataDir = "/mnt/media/downloads";
     web = {
       enable = true;
@@ -87,14 +85,12 @@
   };
   services.radarr = {
     enable = true;
-    user = "media";
-    group = "media";
+    user = "multimedia";
     openFirewall = true;
   };
   services.sonarr = {
     enable = true;
-    user = "media";
-    group = "media";
+    user = "multimedia";
     openFirewall = true;
   };
 
