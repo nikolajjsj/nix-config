@@ -66,7 +66,6 @@
     enable = true;
     user = "multimedia";
     openFirewall = true;
-    dataDir = "/mnt/media";
   };
   services.deluge = {
     user = "multimedia";
