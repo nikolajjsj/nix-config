@@ -69,14 +69,15 @@
     openFirewall = true;
   };
   services.deluge = {
-    user = "multimedia";
-    dataDir = "/mnt/media/downloads";
+    enable = true;
     web = {
       enable = true;
       openFirewall = true;
     };
-    declarative = true;
+    user = "multimedia";
+    dataDir = "/mnt/media/downloads";
     openFirewall = true;
+    declarative = true;
     config = {
       enabled_plugins = [ "Label" ];
     };
