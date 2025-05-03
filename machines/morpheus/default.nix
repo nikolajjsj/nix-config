@@ -81,6 +81,12 @@
     config = {
       enabled_plugins = [ "Label" ];
     };
+    authFile = pkgs.writeTextFile {
+      name = "deluge-auth";
+      text = ''
+        localclient:deluge:10
+      '';
+    };
   };
   services.prowlarr = {
     enable = true;
