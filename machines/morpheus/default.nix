@@ -9,9 +9,7 @@
   # ZFS stuff
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs = {
-    extraPools = [ "rust" ];
     forceImportRoot = true;
-    devNodes = "/dev/disk/by-id";
   };
   services.zfs.autoScrub.enable = true;
   services.zfs.autoSnapshot.enable = true;
@@ -41,7 +39,6 @@
     git
     neovim
     vim
-    zfs
   ];
 
   # Services
