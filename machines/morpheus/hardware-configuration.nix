@@ -51,6 +51,11 @@
       device = "rust/enc/photos";
       fsType = "zfs";
     };
+  fileSystems."/mnt/media" =
+    {
+      device = "rust/enc/media";
+      fsType = "zfs";
+    };
 
   swapDevices = [ ];
 
