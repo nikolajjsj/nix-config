@@ -1,12 +1,5 @@
-{ inputs
-, pkgs
-, lib
-, config
-, ...
-}:
+{ inputs, pkgs, lib, config, ... }:
 {
-  home.packages = with pkgs; [ grc ];
-
   programs = {
     zoxide = {
       enable = true;
