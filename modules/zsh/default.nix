@@ -1,6 +1,10 @@
 { inputs, pkgs, lib, config, ... }:
 {
   programs = {
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
+    };
     zsh = {
       enable = true;
       enableCompletion = true;
