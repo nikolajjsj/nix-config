@@ -44,6 +44,7 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
+    btop
     git
     neovim
     vim
