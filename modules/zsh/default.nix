@@ -1,16 +1,11 @@
-{
-  inputs,
-  pkgs,
-  lib,
-  config,
-  ...
+{ inputs
+, pkgs
+, lib
+, config
+, ...
 }:
 {
   home.packages = with pkgs; [ grc ];
-
-  age.secrets.bwSession = {
-    file = "${inputs.secrets}/bwSession.age";
-  };
 
   programs = {
     zoxide = {
@@ -32,7 +27,7 @@
         ll = "eza -l -g --icons --git";
         lla = "ll -a";
         reload = "source ~/.zshrc"; # reloads current sessions
-        :q = "exit"; # Exit like vim
+        ":q" = "exit"; # Exit like vim
         lg = "lazygit";
         # Git aliases
         gs = "git status"; # Shows the current git STATUS
