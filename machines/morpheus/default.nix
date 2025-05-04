@@ -4,6 +4,7 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/zsh/default.nix
     ];
 
   # ZFS stuff
@@ -33,6 +34,7 @@
   users.users.nikolaj = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
+    shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF0dkeI+7IdQujtZ3UCSfYB2uPFKZz3i7hWlO4O/sMh+ me@nikolajjsj.com"
     ];
