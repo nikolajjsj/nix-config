@@ -64,7 +64,6 @@
     enable = true;
     openDefaultPorts = true;
   };
-  systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true"; # Don't create default ~/Sync folder
   services.immich = {
     enable = true;
     port = 2283;
