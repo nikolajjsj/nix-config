@@ -52,6 +52,7 @@
     neovim
     vim
     intel-gpu-tools
+    starship
     # Jellyfin
     pkgs.jellyfin
     pkgs.jellyfin-web
