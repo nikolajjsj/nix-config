@@ -1,17 +1,6 @@
 { inputs, pkgs, lib, config, ... }:
 {
   programs = {
-    zoxide = {
-      enable = true;
-      enableZshIntegration = true;
-      options = [ "--cmd cd" ];
-    };
-
-    direnv = {
-      enable = true;
-      enableZshIntegration = true;
-    };
-
     zsh = {
       enable = true;
       enableCompletion = true;
