@@ -13,5 +13,6 @@
   imports = [
     ../../modules/neovim/default.nix
     ../../modules/zsh/default.nix
+    ../../modules/aerospace/default.nix
   ];
 }
