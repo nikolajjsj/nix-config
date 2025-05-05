@@ -3,6 +3,6 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    extraConfig = lib.fileContents ./init.lua;
+    extraLuaConfig = lib.fileContents ./init.lua;
   };
 }
