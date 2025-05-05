@@ -38,7 +38,4 @@
       };
     };
   };
-
-  # Prevent "new user promp" from appearing
-  system.userActivationScripts.zshrc = "touch .zshrc";
 }

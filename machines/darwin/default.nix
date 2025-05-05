@@ -4,7 +4,7 @@
   nix.enable = false;
   nixpkgs.config.allowUnfree = true;
 
-  imports = [ ./home.nix ];
+  users.users.darwin.home = "/Users/darwin";
 
   networking.hostName = "darwin";
   time.timeZone = "Europe/Copenhagen";

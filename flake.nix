@@ -26,6 +26,12 @@
           };
           modules = [
             ./machines/darwin/default.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.darwin = import ./machines/darwin/home.nix;
+            }
           ];
         };
       };

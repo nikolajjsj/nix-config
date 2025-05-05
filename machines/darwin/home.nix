@@ -1,22 +1,17 @@
 { config, pkgs, ... }:
 
 {
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+  home.stateVersion = "24.11";
+
   # Basics
   home.username = "darwin";
   home.homeDirectory = "/Users/darwin";
+  home.packages = [ ];
 
-  home.stateVersion = "24.11"; # Don't touch if not needed.
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = [
-    neovim
+  imports = [
+    ../../modules/neovim/default.nix
+    ../../modules/zsh/default.nix
   ];
-
-  home.sessionVariables = {
-     EDITOR = "nvim";
-  };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }
