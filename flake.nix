@@ -2,7 +2,6 @@
   description = "My homelab configurations";
 
   inputs = {
-    # nixpkgs.url = "nixpkgs/nixos-24.11";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
