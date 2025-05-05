@@ -1,5 +1,7 @@
 { config, lib, pkgs, ... }:
 {
+  nixpkgs.config.allowUnfree = true;
+
   networking.hostName = "darwin";
   time.timeZone = "Europe/Copenhagen";
 
@@ -15,16 +17,25 @@
       no_quarantine = true;
     };
     casks = [
+      "dbngin"
+      "docker"
       "google-chrome"
       "tailscale"
       "zen-browser"
+      "ghostty"
+      "syncthing"
     ];
-    brews = [ ];
+    brews = [ "nvm" ];
   };
   environment.systemPackages = with pkgs; [
     go
+    gopls
+    goose
     eza
+    fd
+    lazygit
     neofetch
+    neovim
     tmux
     rsync
     ripgrep
@@ -42,7 +53,12 @@
     };
   };
   # Enable touch ID for sudo
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
-  system.stateVersion = "24.11"; # Did you read the comment?
+  # Hack: issue with user ids and nix-darwin
+  ids.gids.nixbld = 350;
+
+  system.stateVersion = 4;
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }
