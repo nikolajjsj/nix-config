@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 {
+  # For using nix-darwin together with Determinate-Nix
+  nix.enable = false;
   nixpkgs.config.allowUnfree = true;
+
+  imports = [ ./home.nix ];
 
   networking.hostName = "darwin";
   time.timeZone = "Europe/Copenhagen";
@@ -35,8 +39,6 @@
     fd
     lazygit
     neofetch
-    neovim
-    tmux
     rsync
     ripgrep
     slack
