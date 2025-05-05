@@ -55,9 +55,6 @@
   # Enable touch ID for sudo
   security.pam.services.sudo_local.touchIdAuth = true;
 
-  # Hack: issue with user ids and nix-darwin
-  ids.gids.nixbld = 350;
-
   system.stateVersion = 4;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
