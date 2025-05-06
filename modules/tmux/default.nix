@@ -14,6 +14,7 @@
       set -g default-terminal "xterm-256color"
       set -ag terminal-overrides ",xterm-256color:RGB"
       set-option -g default-shell ${pkgs.zsh}/bin/zsh
+      set -g default-command ${pkgs.zsh}/bin/zsh
 
       # Set the base index for windows and panes
       set-option -g base-index 1
@@ -36,9 +37,9 @@
       # Reload TMUX config
       unbind r
       bind r source-file ~/.tmux.conf \; display "Reloaded!"
-      '';
+    '';
     plugins = with pkgs.tmuxPlugins; [
-      yank 
+      yank
     ];
   };
 }
