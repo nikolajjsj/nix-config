@@ -6,6 +6,7 @@
       imports = [
         ../../modules/neovim
         ../../modules/zsh
+        ../../modules/tmux
       ];
 
       home = {
