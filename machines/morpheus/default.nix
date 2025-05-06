@@ -30,6 +30,15 @@ let user = "nikolaj"; in
   networking.hostName = "morpheus";
   time.timeZone = "Europe/Copenhagen";
 
+  users.users.${user} = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+    shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF0dkeI+7IdQujtZ3UCSfYB2uPFKZz3i7hWlO4O/sMh+ me@nikolajjsj.com"
+    ];
+  };
+
   # ZFS stuff
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs = {
