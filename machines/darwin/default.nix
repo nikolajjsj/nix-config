@@ -1,13 +1,28 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, home-manager, ... }:
+let user = "darwin"; in
 {
-  # For using nix-darwin together with Determinate-Nix
-  nix.enable = false;
-  nixpkgs.config.allowUnfree = true;
+  imports = [
+    (import ./home.nix { user = user; })
+  ];
 
-  users.users.darwin.home = "/Users/darwin";
+  users.users.${user} = {
+    name = "${user}";
+    home = "/Users/${user}";
+    isHidden = false;
+    shell = pkgs.zsh;
+  };
 
-  networking.hostName = "darwin";
-  time.timeZone = "Europe/Copenhagen";
+  nix = {
+    enable = false;
+    package = pkgs.nix;
+    settings = {
+      trusted-users = [ "@admin" "${user}" ];
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
 
   homebrew = {
     enable = true;
@@ -20,16 +35,22 @@
     caskArgs = {
       no_quarantine = true;
     };
+    brews = [ "nvm" ];
     casks = [
       "dbngin"
       "docker"
+      "ghostty"
       "google-chrome"
+      "slack"
+      "syncthing"
+      "tableplus"
       "tailscale"
       "zen-browser"
-      "ghostty"
-      "syncthing"
     ];
-    brews = [ "nvm" ];
+    masApps = {
+      "amphetamine" = 937984704;
+      "wireguard" = 1451685025;
+    };
   };
   environment.systemPackages = with pkgs; [
     go
@@ -38,26 +59,57 @@
     eza
     fd
     lazygit
-    neofetch
-    rsync
     ripgrep
-    slack
   ];
 
-  system.defaults = {
-    dock = {
-      autohide = true;
-      mru-spaces = false;
+  system = {
+    stateVersion = 4;
+
+    defaults = {
+      LaunchServices = {
+        LSQuarantine = false;
+      };
+
+      NSGlobalDomain = {
+        AppleShowAllExtensions = true;
+        ApplePressAndHoldEnabled = false;
+
+        # 120, 90, 60, 30, 12, 6, 2
+        KeyRepeat = 2;
+
+        # 120, 94, 68, 35, 25, 15
+        InitialKeyRepeat = 15;
+
+        "com.apple.mouse.tapBehavior" = 1;
+        "com.apple.sound.beep.volume" = 0.0;
+        "com.apple.sound.beep.feedback" = 0;
+      };
+
+      dock = {
+        autohide = true;
+        mru-spaces = false;
+        show-recents = false;
+        orientation = "bottom";
+        tilesize = 48;
+      };
+
+      finder = {
+        AppleShowAllExtensions = true;
+        ShowStatusBar = true;
+      };
+
+      trackpad = {
+        Clicking = true;
+        TrackpadThreeFingerDrag = true;
+      };
     };
-    finder = {
-      AppleShowAllExtensions = true;
-      ShowStatusBar = true;
+
+    keyboard = {
+      enableKeyMapping = true;
+      remapCapsLockToEscape = true;
     };
   };
+
   # Enable touch ID for sudo
   security.pam.services.sudo_local.touchIdAuth = true;
-
-  system.stateVersion = 4;
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }

@@ -1,17 +1,23 @@
-{ config, pkgs, ... }:
-
+{ user, ... }: { config, pkgs, lib, home-manager, ... }:
 {
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-  home.stateVersion = "24.11";
+  home-manager = {
+    useGlobalPkgs = true;
+    users.${user} = { pkgs, config, lib, ... }: {
+      imports = [
+        ../../modules/neovim/default.nix
+        ../../modules/zsh/default.nix
+      ];
 
-  # Basics
-  home.username = "darwin";
-  home.homeDirectory = "/Users/darwin";
-  home.packages = [ ];
+      home = {
+        stateVersion = "24.11";
 
-  imports = [
-    ../../modules/neovim/default.nix
-    ../../modules/zsh/default.nix
-  ];
+        username = "${user}";
+        homeDirectory = "/Users/${user}";
+        packages = [ ];
+      };
+
+      # Let Home Manager install and manage itself.
+      programs.home-manager.enable = true;
+    };
+  };
 }

@@ -18,6 +18,10 @@
       lib = nixpkgs.lib;
     in
     {
+      # General configurations
+      nixpkgs.config.allowUnfree = true;
+
+      # System specific configurations
       darwinConfigurations = {
         darwin = inputs.nix-darwin.lib.darwinSystem {
           system = "aarch64-darwin";
@@ -27,11 +31,6 @@
           modules = [
             ./machines/darwin/default.nix
             home-manager.darwinModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.darwin = import ./machines/darwin/home.nix;
-            }
           ];
         };
       };
