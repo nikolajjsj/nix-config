@@ -45,7 +45,6 @@ let user = "darwin"; in
       "syncthing"
       "tableplus"
       "tailscale"
-      "zen-browser"
     ];
     masApps = {
       "amphetamine" = 937984704;
