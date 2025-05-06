@@ -5,7 +5,6 @@
       enable = true;
       enableCompletion = true;
       history.size = 10000;
-      # extra config
       initContent = ''
         PS1='%F{blue}%B%~%b%f %F{green}❯%f '
       '';
