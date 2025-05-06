@@ -1,12 +1,15 @@
 { inputs, pkgs, lib, config, ... }:
 {
   programs = {
-    starship = {
-      enable = true;
-    };
     zsh = {
       enable = true;
       enableCompletion = true;
+      history.size = 10000;
+      # extra config
+      initContent = ''
+        PS1='%F{blue}%B%~%b%f %F{green}❯%f '
+      '';
+
       shellAliases = {
         nv = "nvim";
         ll = "eza -l -g --icons --git";
@@ -39,3 +42,4 @@
     };
   };
 }
+
