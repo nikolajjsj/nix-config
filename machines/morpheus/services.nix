@@ -1,7 +1,8 @@
-{ user, ... }: { config, pkgs, lib, home-manager, ... }:
+{ config, pkgs, lib, home-manager, ... }:
+let mediaUser = "multimedia"; in
 {
   # Define a 'media' user account.
-  users.users.multimedia = {
+  users.users.${mediaUser} = {
     isNormalUser = true;
   };
 
@@ -30,7 +31,7 @@
   };
   services.jellyfin = {
     enable = true;
-    user = "multimedia";
+    user = "${mediaUser}";
     openFirewall = true;
   };
   services.deluge = {
@@ -39,7 +40,7 @@
       enable = true;
       openFirewall = true;
     };
-    user = "multimedia";
+    user = "${mediaUser}";
     dataDir = "/mnt/media/downloads";
     openFirewall = true;
     declarative = true;
@@ -59,12 +60,12 @@
   };
   services.radarr = {
     enable = true;
-    user = "multimedia";
+    user = "${mediaUser}";
     openFirewall = true;
   };
   services.sonarr = {
     enable = true;
-    user = "multimedia";
+    user = "${mediaUser}";
     openFirewall = true;
   };
 
