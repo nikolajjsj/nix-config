@@ -59,6 +59,8 @@ let user = "darwin"; in
     fd
     lazygit
     ripgrep
+    nodejs
+    pnpm
   ];
 
   system = {
