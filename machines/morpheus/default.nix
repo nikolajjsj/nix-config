@@ -4,8 +4,8 @@ let user = "nikolaj"; in
   imports =
     [
       ./hardware-configuration.nix
-      (import ./home.nix { user = user; })
       ./services.nix
+      (import ./home.nix { user = user; })
     ];
 
   nix = {
