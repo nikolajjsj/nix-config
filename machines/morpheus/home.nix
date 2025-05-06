@@ -2,6 +2,8 @@
 {
   home-manager = {
     useGlobalPkgs = true;
+    backupFileExtension = "backup";
+
     users.${user} = { pkgs, config, lib, ... }: {
       imports = [
         ../../modules/neovim
