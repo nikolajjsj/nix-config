@@ -40,7 +40,10 @@
           specialArgs = {
             inherit inputs;
           };
-          modules = [ ./machines/morpheus/default.nix ];
+          modules = [
+            ./machines/morpheus/default.nix
+            home-manager.nixosModules.home-manager
+          ];
         };
       };
     };
