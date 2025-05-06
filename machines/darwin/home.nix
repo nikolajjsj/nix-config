@@ -4,8 +4,8 @@
     useGlobalPkgs = true;
     users.${user} = { pkgs, config, lib, ... }: {
       imports = [
-        ../../modules/neovim/default.nix
-        ../../modules/zsh/default.nix
+        ../../modules/neovim
+        ../../modules/zsh
       ];
 
       home = {
