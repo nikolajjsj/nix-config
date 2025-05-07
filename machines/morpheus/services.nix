@@ -20,8 +20,10 @@ let mediaUser = "multimedia"; in
   };
   services.syncthing = {
     enable = true;
-    openDefaultPorts = true;
+    guiAddress = "0.0.0.0:8384";
   };
+  networking.firewall.allowedTCPPorts = [ 8384 22000 ];
+  networking.firewall.allowedUDPPorts = [ 22000 21027 ];
   services.immich = {
     enable = true;
     port = 2283;
