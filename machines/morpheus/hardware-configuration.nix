@@ -56,6 +56,11 @@
       device = "rust/enc/media";
       fsType = "zfs";
     };
+  fileSystems."/mnt/syncthing" =
+    {
+      device = "rust/enc/syncthing";
+      fsType = "zfs";
+    };
 
   swapDevices = [ ];
 
