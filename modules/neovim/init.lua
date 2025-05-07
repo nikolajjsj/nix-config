@@ -936,6 +936,9 @@ require("lazy").setup({
 				lua_ls = {
 					settings = {
 						Lua = {
+							diagnostics = {
+								globals = { "vim" },
+							},
 							completion = {
 								callSnippet = "Replace",
 							},
