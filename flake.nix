@@ -17,7 +17,7 @@
     };
   };
 
-  outputs = inputs@{ self, nix-darwin, home-manager, nixpkgs }:
+  outputs = inputs@{ self, nix-darwin, home-manager, disko, nixpkgs }:
     let
       lib = nixpkgs.lib;
     in
