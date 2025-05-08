@@ -124,6 +124,7 @@
               keyformat = "passphrase";
               keylocation = "prompt";
             };
+            mountpoint = "/";
           };
 
           "root/local/root" = {
