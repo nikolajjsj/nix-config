@@ -131,7 +131,7 @@
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/mnt";
-            postCreateHook = "zfs snapshot zroot/root/local/root@blank";
+            postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zroot/root/local/root@blank$' || zfs snapshot zroot/root/local/root@blank";
           };
           "root/local/nix" = {
             type = "zfs_fs";
