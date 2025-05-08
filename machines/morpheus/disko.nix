@@ -106,41 +106,43 @@
       zroot = {
         type = "zpool";
         mode = "mirror";
-        options = {
-          ashift = "12";
-          autotrim = "on";
-          compatibility = "grub2";
-        };
+        options.ashift = "12";
         rootFsOptions = {
           mountpoint = "none";
           compression = "zstd";
           acltype = "posixacl";
           xattr = "sa";
-          encryption = "aes-256-gcm";
-          keyformat = "passphrase";
-          keylocation = "prompt";
           atime = "off";
           "com.sun:auto-snapshot" = "false";
         };
 
         datasets = {
-          "local/root" = {
+          "root" = {
+            type = "zfs_fs";
+            options = {
+              encryption = "aes-256-gcm";
+              keyformat = "passphrase";
+              keylocation = "prompt";
+            };
+          };
+
+          "root/local/root" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/mnt";
-            postCreateHook = "zfs snapshot zroot/local/root@blank";
+            postCreateHook = "zfs snapshot zroot/root/local/root@blank";
           };
-          "local/nix" = {
+          "root/local/nix" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/mnt/nix";
           };
-          "safe/home" = {
+          "root/safe/home" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/mnt/home";
           };
-          "safe/persist" = {
+          "root/safe/persist" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/mnt/persist";
