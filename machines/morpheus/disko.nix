@@ -169,7 +169,7 @@
               keylocation = "file:///tmp/rust.key";
             };
             postCreateHook = ''
-              zfs set keylocation="file:///mnt/persist/keys/rust.key" "rust/enc";
+              zfs set keylocation="file:///persist/keys/rust.key" "rust/enc";
             '';
           };
           "enc/media" = {
