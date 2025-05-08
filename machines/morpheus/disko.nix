@@ -3,7 +3,7 @@
     disk = {
       boot = {
         type = "disk";
-        device = "/dev/nvme0n1";
+        device = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNU0WC27180T";
         content = {
           type = "gpt";
           partitions = {
@@ -29,7 +29,7 @@
       };
       boot_fallback = {
         type = "disk";
-        device = "/dev/nvme1n1";
+        device = "/dev/disk/by-id/nvme-WD_BLACK_SN850X_1000GB_24127V4A2P01";
         content = {
           type = "gpt";
           partitions = {
