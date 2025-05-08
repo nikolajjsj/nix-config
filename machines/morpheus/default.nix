@@ -23,6 +23,7 @@ let user = "neo"; in
     enable = true;
     hideMounts = true;
     directories = [
+      "/var/lib/nixos"
       "/var/lib/syncthing"
       "/var/lib/jellyfin"
       "/var/lib/prowlarr"
