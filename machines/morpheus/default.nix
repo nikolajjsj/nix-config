@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-let user = "nikolaj"; in
+let user = "neo"; in
 {
   imports =
     [
