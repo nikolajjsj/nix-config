@@ -115,38 +115,38 @@
           atime = "off";
           "com.sun:auto-snapshot" = "false";
         };
+        mountpoint = "/";
 
         datasets = {
-          "root" = {
+          "enc" = {
             type = "zfs_fs";
             options = {
               encryption = "aes-256-gcm";
               keyformat = "passphrase";
               keylocation = "prompt";
             };
-            mountpoint = "/";
           };
 
-          "root/local/root" = {
+          "enc/local/root" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
-            mountpoint = "/mnt";
-            postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zroot/root/local/root@blank$' || zfs snapshot zroot/root/local/root@blank";
+            mountpoint = "/";
+            postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zroot/enc/local/root@blank$' || zfs snapshot zroot/enc/local/root@blank";
           };
-          "root/local/nix" = {
+          "enc/local/nix" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
-            mountpoint = "/mnt/nix";
+            mountpoint = "/nix";
           };
-          "root/safe/home" = {
+          "enc/safe/home" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
-            mountpoint = "/mnt/home";
+            mountpoint = "/home";
           };
-          "root/safe/persist" = {
+          "enc/safe/persist" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
-            mountpoint = "/mnt/persist";
+            mountpoint = "/persist";
           };
         };
       };
