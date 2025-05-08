@@ -122,15 +122,13 @@
           atime = "off";
           "com.sun:auto-snapshot" = "false";
         };
-        postCreateHook = ''
-          zfs list - t snapshot - H - o name | grep - E '^zroot/local/root@blank$' || zfs snapshot zroot/local/root@blank
-        '';
 
         datasets = {
           "local/root" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/mnt";
+            postCreateHook = "zfs snapshot zroot/local/root@blank";
           };
           "local/nix" = {
             type = "zfs_fs";
