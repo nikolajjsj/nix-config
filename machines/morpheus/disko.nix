@@ -122,7 +122,9 @@
           atime = "off";
           "com.sun:auto-snapshot" = "false";
         };
-        postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zroot/local/root@blank$' || zfs snapshot zroot/local/root@blank";
+        postCreateHook = ''
+          zfs list - t snapshot - H - o name | grep - E '^zroot/local/root@blank$' || zfs snapshot zroot/local/root@blank
+        '';
 
         datasets = {
           "local/root" = {
@@ -163,8 +165,11 @@
               mountpoint = "none";
               encryption = "aes-256-gcm";
               keyformat = "passphrase";
-              keylocation = "file:///mnt/volkeys/rust.key";
+              keylocation = "file:///tmp/rust.key";
             };
+            postCreateHook = ''
+              zfs set keylocation="file:///mnt/persist/keys/rust.key" "rust/enc";
+            '';
           };
           "enc/media" = {
             type = "zfs_fs";
