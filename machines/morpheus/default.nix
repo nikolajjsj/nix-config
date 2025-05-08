@@ -3,6 +3,7 @@ let user = "nikolaj"; in
 {
   imports =
     [
+      ./disko.nix
       ./hardware-configuration.nix
       ./services.nix
       (import ./home.nix { user = user; })
