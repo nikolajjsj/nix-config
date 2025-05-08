@@ -87,5 +87,7 @@ let user = "neo"; in
     git
   ];
 
+  fileSystems."/persist".neededForBoot = true;
+
   system.stateVersion = "24.11"; # Did you read the comment?
 }
