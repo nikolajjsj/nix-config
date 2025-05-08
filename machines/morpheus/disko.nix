@@ -127,6 +127,7 @@
         datasets = {
           "root" = {
             type = "zfs_fs";
+            options.mountpoint = "legacy";
             mountpoint = "/";
           };
           "root/nix" = {
