@@ -171,11 +171,6 @@
             mountpoint = "/mnt/media";
             options.mountpoint = "legacy";
           };
-          "enc/photos" = {
-            type = "zfs_fs";
-            mountpoint = "/mnt/photos";
-            options.mountpoint = "legacy";
-          };
           "enc/syncthing" = {
             type = "zfs_fs";
             mountpoint = "/mnt/syncthing";

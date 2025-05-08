@@ -24,13 +24,6 @@ let mediaUser = "multimedia"; in
   };
   networking.firewall.allowedTCPPorts = [ 8384 22000 ];
   networking.firewall.allowedUDPPorts = [ 22000 21027 ];
-  services.immich = {
-    enable = true;
-    port = 2283;
-    host = "0.0.0.0";
-    openFirewall = true;
-    mediaLocation = "/mnt/photos";
-  };
   services.jellyfin = {
     enable = true;
     user = "${mediaUser}";
