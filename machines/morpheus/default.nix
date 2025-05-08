@@ -33,6 +33,7 @@ in
     directories = [
       "/var/lib/nixos"
       { directory = "/var/lib/syncthing"; user = "syncthing"; group = "syncthing"; }
+      { directory = "/var/lib/jellyfin"; user = "${mediaUser}"; group = "jellyfin"; }
       { directory = "/var/lib/prowlarr"; user = "${mediaUser}"; group = "prowlarr"; }
       { directory = "/var/lib/radarr"; user = "${mediaUser}"; group = "radarr"; }
       { directory = "/var/lib/sonarr"; user = "${mediaUser}"; group = "sonarr"; }
