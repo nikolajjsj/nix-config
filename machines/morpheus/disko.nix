@@ -13,7 +13,7 @@
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/boot";
+                mountpoint = "/mnt/boot";
                 mountOptions = [ "nofail" ];
               };
             };
@@ -39,7 +39,7 @@
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/boot-fallback";
+                mountpoint = "/mnt/boot-fallback";
                 mountOptions = [ "nofail" ];
               };
             };
@@ -122,23 +122,28 @@
           atime = "off";
           "com.sun:auto-snapshot" = "false";
         };
-        postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zroot@blank$' || zfs snapshot zroot@blank";
+        postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zroot/local/root@blank$' || zfs snapshot zroot/local/root@blank";
 
         datasets = {
-          "root" = {
+          "local/root" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
-            mountpoint = "/";
+            mountpoint = "/mnt";
           };
-          "root/nix" = {
+          "local/nix" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
-            mountpoint = "/nix";
+            mountpoint = "/mnt/nix";
           };
-          "root/home" = {
+          "safe/home" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
-            mountpoint = "/home";
+            mountpoint = "/mnt/home";
+          };
+          "safe/persist" = {
+            type = "zfs_fs";
+            options.mountpoint = "legacy";
+            mountpoint = "/mnt/persist";
           };
         };
       };

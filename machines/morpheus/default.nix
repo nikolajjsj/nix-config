@@ -59,6 +59,9 @@ let user = "nikolaj"; in
       { devices = [ "nodev" ]; path = "/boot-fallback"; }
     ];
   };
+  boot.initrd.postDeviceCommands = lib.mkAfter ''
+    zfs rollback -r rpool/local/root@blank
+  '';
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
