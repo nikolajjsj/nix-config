@@ -15,6 +15,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nix-darwin, home-manager, disko, nixpkgs }:
@@ -48,6 +52,7 @@
             ./machines/morpheus/default.nix
             home-manager.nixosModules.home-manager
             disko.nixosModules.disko
+            impermanence.nixosModules.impermanence
           ];
         };
       };

@@ -19,6 +19,23 @@ let user = "neo"; in
     ];
   };
 
+  environment.persistence."/persist" = {
+    enable = true;
+    hideMounts = true;
+    directories = [
+      "/var/lib/syncthing"
+      "/var/lib/jellyfin"
+      "/var/lib/prowlarr"
+      "/var/lib/radarr"
+      "/var/lib/sonarr"
+      "/var/lib/deluge"
+    ];
+    users.${user} = {
+      directories = [{ directory = ".ssh"; mode = "0700"; }];
+      files = [ ];
+    };
+  };
+
   nix = {
     gc = {
       automatic = true;
