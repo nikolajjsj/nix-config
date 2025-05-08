@@ -13,8 +13,8 @@
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/mnt/boot";
-                mountOptions = [ "nofail" ];
+                mountpoint = "/boot";
+                mountOptions = [ "nofail" "umask=0077" ];
               };
             };
             zfs = {
@@ -39,8 +39,8 @@
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/mnt/boot-fallback";
-                mountOptions = [ "nofail" ];
+                mountpoint = "/boot-fallback";
+                mountOptions = [ "nofail" "umask=0077" ];
               };
             };
             zfs = {
