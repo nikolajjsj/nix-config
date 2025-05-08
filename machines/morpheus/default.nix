@@ -85,7 +85,7 @@ in
     ];
   };
   boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r rpool/local/root@blank
+    zfs rollback -r zroot/enc/local/root@blank
   '';
 
   # List packages installed in system profile.
