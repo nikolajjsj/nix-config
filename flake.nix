@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,6 +47,7 @@
           modules = [
             ./machines/morpheus/default.nix
             home-manager.nixosModules.home-manager
+            disko.nixosModules.disko
           ];
         };
       };
