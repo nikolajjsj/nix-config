@@ -1,14 +1,18 @@
 { config, lib, pkgs, ... }:
-let user = "neo"; in
+let
+  user = "neo";
+  mediaUser = "multimedia";
+in
 {
   imports =
     [
       ./disko.nix
       ./hardware-configuration.nix
-      ./services.nix
+      (import ./services.nix { user = mediaUser; })
       (import ./home.nix { user = user; })
     ];
 
+  users.users.${mediaUser}.isSystemUser = true;
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
@@ -24,12 +28,11 @@ let user = "neo"; in
     hideMounts = true;
     directories = [
       "/var/lib/nixos"
-      "/var/lib/syncthing"
-      "/var/lib/jellyfin"
-      "/var/lib/prowlarr"
-      "/var/lib/radarr"
-      "/var/lib/sonarr"
-      "/var/lib/deluge"
+      { directory = "/var/lib/syncthing"; user = "syncthing"; group = "syncthing"; }
+      { directory = "/var/lib/prowlarr"; user = "${mediaUser}"; group = "prowlarr"; }
+      { directory = "/var/lib/radarr"; user = "${mediaUser}"; group = "radarr"; }
+      { directory = "/var/lib/sonarr"; user = "${mediaUser}"; group = "sonarr"; }
+      { directory = "/var/lib/deluge"; user = "${mediaUser}"; group = "deluge"; }
     ];
     users.${user} = {
       directories = [{ directory = ".ssh"; mode = "0700"; }];

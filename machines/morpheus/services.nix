@@ -1,11 +1,5 @@
-{ config, pkgs, lib, home-manager, ... }:
-let mediaUser = "multimedia"; in
+{ user, ... }: { config, pkgs, lib, home-manager, ... }:
 {
-  # Define a 'media' user account.
-  users.users.${mediaUser} = {
-    isNormalUser = true;
-  };
-
   environment.systemPackages = with pkgs; [
     intel-gpu-tools
     pkgs.jellyfin
@@ -26,7 +20,7 @@ let mediaUser = "multimedia"; in
   networking.firewall.allowedUDPPorts = [ 22000 21027 ];
   services.jellyfin = {
     enable = true;
-    user = "${mediaUser}";
+    user = "${user}";
     openFirewall = true;
   };
   services.deluge = {
@@ -35,7 +29,7 @@ let mediaUser = "multimedia"; in
       enable = true;
       openFirewall = true;
     };
-    user = "${mediaUser}";
+    user = "${user}";
     dataDir = "/mnt/media/downloads";
     openFirewall = true;
     declarative = true;
@@ -55,12 +49,12 @@ let mediaUser = "multimedia"; in
   };
   services.radarr = {
     enable = true;
-    user = "${mediaUser}";
+    user = "${user}";
     openFirewall = true;
   };
   services.sonarr = {
     enable = true;
-    user = "${mediaUser}";
+    user = "${user}";
     openFirewall = true;
   };
 
