@@ -37,6 +37,7 @@ in
       { directory = "/var/lib/prowlarr"; user = "${mediaUser}"; group = "prowlarr"; }
       { directory = "/var/lib/radarr"; user = "${mediaUser}"; group = "radarr"; }
       { directory = "/var/lib/sonarr"; user = "${mediaUser}"; group = "sonarr"; }
+      { directory = "/var/lib/bazarr"; user = "${mediaUser}"; group = "bazarr"; }
       { directory = "/var/lib/deluge"; user = "${mediaUser}"; group = "deluge"; }
     ];
     users.${user} = {

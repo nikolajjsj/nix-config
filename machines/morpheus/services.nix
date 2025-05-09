@@ -178,6 +178,11 @@
     user = "${user}";
     openFirewall = true;
   };
+  services.bazarr = {
+    enable = true;
+    user = "${user}";
+    openFirewall = true;
+  };
 
   # Jellyfin hardware acceleration
   systemd.services.jellyfin.environment.LIBVA_DRIVER_NAME = "iHD";
