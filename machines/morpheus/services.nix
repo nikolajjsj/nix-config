@@ -22,19 +22,21 @@
           {
             "Prowlarr" = {
               href = "http://192.168.20.100:9696";
-              description = "Prowling through the night";
             };
           }
           {
             "Radarr" = {
               href = "http://192.168.20.100:7878";
-              description = "Radarr is a fork of Sonarr for movies.";
             };
           }
           {
             "Sonarr" = {
               href = "http://192.168.20.100:8989";
-              description = "Sonarr is a fork of Radarr for TV shows.";
+            };
+          }
+          {
+            "Bazarr" = {
+              href = "http://192.168.20.100:6767";
             };
           }
         ];
@@ -44,7 +46,6 @@
           {
             "Jellyfin" = {
               href = "http://192.168.20.100:8096";
-              description = "Jellyfin is a Free Software Media System that puts you in control of managing and streaming your media.";
             };
           }
         ];
@@ -54,7 +55,6 @@
           {
             "Deluge" = {
               href = "http://192.168.20.100:8112";
-              description = "Deluge is a lightweight, Free Software, cross-platform BitTorrent client.";
             };
           }
         ];
@@ -64,7 +64,6 @@
           {
             "Syncthing" = {
               href = "http://192.168.20.100:8384";
-              description = "Syncthing is a continuous file synchronization program.";
             };
           }
         ];
