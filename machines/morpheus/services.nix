@@ -12,6 +12,127 @@
     enable = true;
     openFirewall = true;
   };
+  services.homepage-dashboard = {
+    enable = true;
+    openFirewall = true;
+    allowedHosts = "192.168.20.100:8082";
+    services = [
+      {
+        "Arr" = [
+          {
+            "Prowlarr" = {
+              href = "http://192.168.20.100:9696";
+              description = "Prowling through the night";
+            };
+          }
+          {
+            "Radarr" = {
+              href = "http://192.168.20.100:7878";
+              description = "Radarr is a fork of Sonarr for movies.";
+            };
+          }
+          {
+            "Sonarr" = {
+              href = "http://192.168.20.100:8989";
+              description = "Sonarr is a fork of Radarr for TV shows.";
+            };
+          }
+        ];
+      }
+      {
+        "Media" = [
+          {
+            "Jellyfin" = {
+              href = "http://192.168.20.100:8096";
+              description = "Jellyfin is a Free Software Media System that puts you in control of managing and streaming your media.";
+            };
+          }
+        ];
+      }
+      {
+        "Downloads" = [
+          {
+            "Deluge" = {
+              href = "http://192.168.20.100:8112";
+              description = "Deluge is a lightweight, Free Software, cross-platform BitTorrent client.";
+            };
+          }
+        ];
+      }
+      {
+        "Services" = [
+          {
+            "Syncthing" = {
+              href = "http://192.168.20.100:8384";
+              description = "Syncthing is a continuous file synchronization program.";
+            };
+          }
+        ];
+      }
+    ];
+    settings = {
+      layout = [
+        {
+          Glances = {
+            header = false;
+            style = "row";
+            columns = 4;
+          };
+        }
+        {
+          Arr = {
+            header = true;
+            style = "column";
+          };
+        }
+        {
+          Media = {
+            header = true;
+            style = "column";
+          };
+        }
+        {
+          Downloads = {
+            header = true;
+            style = "column";
+          };
+        }
+        {
+          Services = {
+            header = true;
+            style = "column";
+          };
+        }
+      ];
+      headerStyle = "clean";
+      statusStyle = "dot";
+      hideVersion = "true";
+    };
+    customCSS = ''
+      body, html {
+        font-family: SF Pro Display, Helvetica, Arial, sans-serif !important;
+      }
+      .font-medium {
+        font-weight: 700 !important;
+      }
+      .font-light {
+        font-weight: 500 !important;
+      }
+      .font-thin {
+        font-weight: 400 !important;
+      }
+      #information-widgets {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      div#footer {
+        display: none;
+      }
+      .services-group.basis-full.flex-1.px-1.-my-1 {
+        padding-bottom: 3rem;
+      };
+    '';
+  };
   services.syncthing = {
     enable = true;
     guiAddress = "0.0.0.0:8384";
