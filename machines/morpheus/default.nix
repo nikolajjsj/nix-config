@@ -8,7 +8,7 @@ in
     [
       ./disko.nix
       ./hardware-configuration.nix
-      ../../home/${user}
+      ../../home/${user}/${user}.nix
       ../../services
     ];
 

@@ -3,7 +3,7 @@ let user = "darwin"; in
 {
   imports = [
     ../common
-    ../../home/${user}
+    ../../home/${user}/${user}.nix
   ];
 
   homebrew = {
