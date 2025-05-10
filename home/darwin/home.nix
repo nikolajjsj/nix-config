@@ -25,9 +25,6 @@
       nodejs
       pnpm
     ];
-    sessionVariables = {
-      EDITOR = "neovim";
-    };
   };
 
   # Let Home Manager install and manage itself.

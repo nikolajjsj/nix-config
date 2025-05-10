@@ -20,9 +20,6 @@ in
     username = "${user}";
     homeDirectory = "/home/${user}";
     packages = [ ];
-    sessionVariables = {
-      EDITOR = "neovim";
-    };
   };
 
   # Let Home Manager install and manage itself.
