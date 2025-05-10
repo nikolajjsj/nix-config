@@ -8,57 +8,19 @@ in
     [
       ./disko.nix
       ./hardware-configuration.nix
-      (import ./services.nix { user = mediaUser; })
       ../../home/${user}
+      ../../services
     ];
 
+  networking = {
+    hostId = "01823755";
+    hostName = "morpheus";
   };
-  users.groups.${mediaUser} = { };
-  users.users.${mediaUser} = {
-    isSystemUser = true;
-    group = "multimedia";
-  };
-
-  environment.persistence."/persist" = {
-    enable = true;
-    hideMounts = true;
-    directories = [
-      "/var/lib/nixos"
-      { directory = "/var/lib/syncthing"; user = "syncthing"; group = "syncthing"; }
-      { directory = "/var/lib/jellyfin"; user = "${mediaUser}"; group = "jellyfin"; }
-      { directory = "/var/lib/prowlarr"; user = "${mediaUser}"; group = "prowlarr"; }
-      { directory = "/var/lib/radarr"; user = "${mediaUser}"; group = "radarr"; }
-      { directory = "/var/lib/sonarr"; user = "${mediaUser}"; group = "sonarr"; }
-      { directory = "/var/lib/bazarr"; user = "${mediaUser}"; group = "bazarr"; }
-      { directory = "/var/lib/deluge"; user = "${mediaUser}"; group = "deluge"; }
-    ];
-    users.${user} = {
-      directories = [{ directory = ".ssh"; mode = "0700"; }];
-      files = [ ];
-    };
-  };
-
-  nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-    settings = {
-      allowed-users = [ "${user}" ];
-      trusted-users = [ "@admin" "${user}" ];
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
-    };
-    package = pkgs.nix;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
-
-  networking.hostId = "01823755";
-  networking.hostName = "morpheus";
   time.timeZone = "Europe/Copenhagen";
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+  };
 
   # ZFS stuff
   boot.supportedFilesystems = [ "zfs" ];
@@ -82,14 +44,23 @@ in
     zfs rollback -r zroot/enc/local/root@blank
   '';
 
-  # List packages installed in system profile.
-  environment.systemPackages = with pkgs; [
-    btop
-    eza
-    git
-  ];
-
   fileSystems."/persist".neededForBoot = true;
+  environment.persistence."/persist" = {
+    enable = true;
+    hideMounts = true;
+    users.${user} = {
+      directories = [{ directory = ".ssh"; mode = "0700"; }];
+      files = [ ];
+    };
+  };
+
+  services = {
+    arr.enable = true;
+    deluge.enable = true;
+    homepage.enable = true;
+    jellyfin.enable = true;
+    syncthing.enable = true;
+  };
 
   system.stateVersion = "24.11"; # Did you read the comment?
 }
