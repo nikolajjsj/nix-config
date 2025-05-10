@@ -2,27 +2,9 @@
 let user = "darwin"; in
 {
   imports = [
-    (import ./home.nix { user = user; })
+    ../common
+    ../../home/${user}
   ];
-
-  users.users.${user} = {
-    name = "${user}";
-    home = "/Users/${user}";
-    isHidden = false;
-    shell = pkgs.zsh;
-  };
-
-  nix = {
-    enable = false;
-    package = pkgs.nix;
-    settings = {
-      trusted-users = [ "@admin" "${user}" ];
-      experimental-features = [ "nix-command" "flakes" ];
-    };
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
 
   homebrew = {
     enable = true;
@@ -51,17 +33,6 @@ let user = "darwin"; in
       "wireguard" = 1451685025;
     };
   };
-  environment.systemPackages = with pkgs; [
-    go
-    gopls
-    goose
-    eza
-    fd
-    lazygit
-    ripgrep
-    nodejs
-    pnpm
-  ];
 
   system = {
     stateVersion = 4;

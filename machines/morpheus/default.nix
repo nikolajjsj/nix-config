@@ -9,17 +9,9 @@ in
       ./disko.nix
       ./hardware-configuration.nix
       (import ./services.nix { user = mediaUser; })
-      (import ./home.nix { user = user; })
+      ../../home/${user}
     ];
 
-  users.users.${user} = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    shell = pkgs.zsh;
-    ignoreShellProgramCheck = true;
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF0dkeI+7IdQujtZ3UCSfYB2uPFKZz3i7hWlO4O/sMh+ me@nikolajjsj.com"
-    ];
   };
   users.groups.${mediaUser} = { };
   users.users.${mediaUser} = {
