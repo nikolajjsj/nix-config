@@ -1,4 +1,4 @@
-{}: {
+{
   imports = [
     ./arr.nix
     ./deluge.nix
