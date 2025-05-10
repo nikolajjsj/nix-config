@@ -48,6 +48,9 @@ in
   environment.persistence."/persist" = {
     enable = true;
     hideMounts = true;
+    directories = [
+      "/var/lib/nixos"
+    ];
     users.${user} = {
       directories = [{ directory = ".ssh"; mode = "0700"; }];
       files = [ ];
