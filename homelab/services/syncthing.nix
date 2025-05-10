@@ -1,10 +1,10 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.services.syncthing;
+  cfg = config.homelab.services.syncthing;
 in
 {
-  options.services.syncthing.enable = mkEnableOption "Enable Syncthing.";
+  options.homelab.services.syncthing.enable = mkEnableOption "Enable Syncthing.";
 
   config = mkIf cfg.enable {
     environment.persistence."/persist" = {

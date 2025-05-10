@@ -1,10 +1,10 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.services.homepage;
+  cfg = config.homelab.services.homepage;
 in
 {
-  options.services.homepage = {
+  options.homelab.services.homepage = {
     enable = mkEnableOption "Enable Homepage Dashboard.";
     ip = mkOption {
       type = types.str;

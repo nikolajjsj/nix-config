@@ -1,10 +1,10 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.services.jellyfin;
+  cfg = config.homelab.services.jellyfin;
 in
 {
-  options.services.jellyfin = {
+  options.homelab.services.jellyfin = {
     enable = mkEnableOption "Enable Jellyfin.";
     user = mkOption {
       type = types.str;

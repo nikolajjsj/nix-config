@@ -9,7 +9,7 @@ in
       ./disko.nix
       ./hardware-configuration.nix
       ../../home/${user}/${user}.nix
-      ../../services
+      ../../homelab
     ];
 
   networking = {
@@ -54,12 +54,14 @@ in
     };
   };
 
-  services = {
-    arr.enable = true;
-    deluge.enable = true;
-    homepage.enable = true;
-    jellyfin.enable = true;
-    syncthing.enable = true;
+  homelab = {
+    services = {
+      arr.enable = true;
+      deluge.enable = true;
+      homepage.enable = true;
+      jellyfin.enable = true;
+      syncthing.enable = true;
+    };
   };
 
   system.stateVersion = "24.11"; # Did you read the comment?

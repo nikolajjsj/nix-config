@@ -1,10 +1,10 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.services.deluge;
+  cfg = config.homelab.services.deluge;
 in
 {
-  options.services.deluge = {
+  options.homelab.services.deluge = {
     enable = mkEnableOption "Enable Deluge.";
     user = mkOption {
       type = types.str;

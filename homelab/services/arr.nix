@@ -1,10 +1,10 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.services.arr;
+  cfg = config.homelab.services.arr;
 in
 {
-  options.services.arr = {
+  options.homelab.services.arr = {
     enable = mkEnableOption "Enable Arr Stack.";
     user = mkOption {
       type = types.str;
