@@ -5,7 +5,6 @@ in
 {
   imports = [
     ../../modules/neovim
-    ../../modules/zsh
     ../features/cli
   ];
 
