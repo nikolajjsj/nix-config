@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.homelab.services.deluge;
@@ -32,7 +32,7 @@ in
         enable = true;
         openFirewall = true;
       };
-      user = "${user}";
+      user = "${cfg.user}";
       dataDir = "/mnt/media/downloads";
       openFirewall = true;
       declarative = true;
