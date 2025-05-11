@@ -29,6 +29,7 @@ in
     services.audiobookshelf = {
       enable = true;
       user = "${cfg.user}";
+      port = 8113;
       openFirewall = true;
     };
   };

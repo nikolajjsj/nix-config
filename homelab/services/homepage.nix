@@ -104,8 +104,8 @@ in
             }
             {
               "Audiobookshelf" = {
-                href = "http://${cfg.ip}:13378";
-                siteMonitor = "http://${cfg.ip}:13378";
+                href = "http://${cfg.ip}:8113";
+                siteMonitor = "http://${cfg.ip}:8113";
                 icon = "sh-audiobookshelf";
                 description = "The free software audiobooks system";
               };
