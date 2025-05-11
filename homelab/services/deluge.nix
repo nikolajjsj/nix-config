@@ -37,6 +37,14 @@ in
       openFirewall = true;
       declarative = true;
       config = {
+        download_location = "/mnt/media/downloads/incomplete";
+        move_completed = true;
+        move_completed_path = "/mnt/media/downloads/completed";
+        max_connections_global = 75;
+        max_active_seeding = 0;
+        max_active_downloading = 3;
+        max_active_limit = 3;
+        dont_count_slow_torrents = true;
         enabled_plugins = [ "Label" ];
       };
       authFile = pkgs.writeTextFile {
