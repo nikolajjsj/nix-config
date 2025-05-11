@@ -25,30 +25,35 @@ in
               "Prowlarr" = {
                 href = "http://${cfg.ip}:9696";
                 icon = "sh-prowlarr";
+                description = "PVR indexer";
               };
             }
             {
               "Radarr" = {
                 href = "http://${cfg.ip}:7878";
                 icon = "sh-radarr";
+                description = "Movie collection manager";
               };
             }
             {
               "Sonarr" = {
                 href = "http://${cfg.ip}:8989";
                 icon = "sh-sonarr";
+                description = "TV collection manager";
               };
             }
             {
               "Bazarr" = {
                 href = "http://${cfg.ip}:6767";
                 icon = "sh-bazarr";
+                description = "Subtitles manager";
               };
             }
             {
               "Readarr" = {
                 href = "http://${cfg.ip}:8787";
                 icon = "sh-readarr";
+                description = "Ebook collection manager";
               };
             }
           ];
@@ -59,6 +64,7 @@ in
               "Jellyfin" = {
                 href = "http://${cfg.ip}:8096";
                 icon = "sh-jellyfin";
+                description = "The free software media system";
               };
             }
           ];
@@ -69,6 +75,7 @@ in
               "Deluge" = {
                 href = "http://${cfg.ip}:8112";
                 icon = "sh-deluge";
+                description = "Torrent client";
               };
             }
           ];
@@ -79,6 +86,7 @@ in
               "Syncthing" = {
                 href = "http://${cfg.ip}:8384";
                 icon = "sh-syncthing";
+                description = "File synchronization";
               };
             }
           ];
