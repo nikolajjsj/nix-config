@@ -103,6 +103,14 @@ in
                 description = "The free software media system";
               };
             }
+            {
+              "Audiobookshelf" = {
+                href = "http://${cfg.ip}:13378";
+                siteMonitor = "http://${cfg.ip}:13378";
+                icon = "sh-audiobookshelf";
+                description = "The free software audiobooks system";
+              };
+            }
           ];
         }
         {
