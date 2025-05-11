@@ -19,6 +19,7 @@ in
   };
 
   config = mkIf cfg.enable {
+    services.glances.enable = true;
     services.homepage-dashboard = {
       enable = true;
       openFirewall = true;
@@ -124,6 +125,54 @@ in
                 siteMonitor = "http://${cfg.ip}:8384";
                 icon = "sh-syncthing";
                 description = "File synchronization";
+              };
+            }
+          ];
+        }
+        {
+          "Glances" = [
+            {
+              Info = {
+                widget = {
+                  type = "glances";
+                  url = "http://localhost:${cfg.port}";
+                  metric = "info";
+                  chart = false;
+                  version = 4;
+                };
+              };
+            }
+            {
+              "CPU Temp" = {
+                widget = {
+                  type = "glances";
+                  url = "http://localhost:${cfg.port}";
+                  metric = "sensor:Package id 0";
+                  chart = false;
+                  version = 4;
+                };
+              };
+            }
+            {
+              Processes = {
+                widget = {
+                  type = "glances";
+                  url = "http://localhost:${cfg.port}";
+                  metric = "process";
+                  chart = false;
+                  version = 4;
+                };
+              };
+            }
+            {
+              Network = {
+                widget = {
+                  type = "glances";
+                  url = "http://localhost:${cfg.port}";
+                  metric = "network:enp2s0";
+                  chart = false;
+                  version = 4;
+                };
               };
             }
           ];
