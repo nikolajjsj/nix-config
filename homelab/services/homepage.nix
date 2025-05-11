@@ -11,13 +11,18 @@ in
       default = "192.168.20.100";
       description = "IP address for homepage dashboard.";
     };
+    port = mkOption {
+      type = types.int;
+      default = 8082;
+      description = "Port for homepage dashboard.";
+    };
   };
 
   config = mkIf cfg.enable {
     services.homepage-dashboard = {
       enable = true;
       openFirewall = true;
-      allowedHosts = "${cfg.ip}:8082";
+      allowedHosts = "${cfg.ip}:${cfg.port}";
       services = [
         {
           "Arr" = [
