@@ -33,7 +33,6 @@ in
         openFirewall = true;
       };
       user = "${cfg.user}";
-      dataDir = "/mnt/media/downloads";
       openFirewall = true;
       declarative = true;
       config = {
