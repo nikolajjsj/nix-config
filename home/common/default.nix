@@ -33,5 +33,10 @@
       warn-dirty = false;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    git
+    lazygit
+  ];
 }
 
