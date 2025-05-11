@@ -26,6 +26,7 @@ in
         { directory = "/var/lib/radarr"; user = "${cfg.user}"; group = "radarr"; }
         { directory = "/var/lib/sonarr"; user = "${cfg.user}"; group = "sonarr"; }
         { directory = "/var/lib/bazarr"; user = "${cfg.user}"; group = "bazarr"; }
+        { directory = "/var/lib/readarr"; user = "${cfg.user}"; group = "readarr"; }
       ];
     };
 
@@ -44,6 +45,11 @@ in
       openFirewall = true;
     };
     services.bazarr = {
+      enable = true;
+      user = "${cfg.user}";
+      openFirewall = true;
+    };
+    services.readarr = {
       enable = true;
       user = "${cfg.user}";
       openFirewall = true;
