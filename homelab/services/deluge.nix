@@ -40,13 +40,12 @@ in
         move_completed = true;
         move_completed_path = "/mnt/media/downloads/completed";
         max_connections_global = 75;
-        max_active_seeding = 0;
+        max_active_seeding = 3;
         max_active_downloading = 3;
-        max_active_limit = 3;
+        max_active_limit = 6;
         dont_count_slow_torrents = true;
         stop_seed_at_ratio = true;
         stop_seed_ratio = 0.00;
-        remove_seed_at_ratio = true;
         share_ratio_limit = 0.00;
         new_release_check = false;
         enabled_plugins = [ "Label" ];
