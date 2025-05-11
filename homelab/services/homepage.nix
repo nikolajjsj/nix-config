@@ -24,25 +24,31 @@ in
             {
               "Prowlarr" = {
                 href = "http://${cfg.ip}:9696";
+                icon = "sh-prowlarr";
               };
             }
             {
               "Radarr" = {
                 href = "http://${cfg.ip}:7878";
+                icon = "sh-radarr";
               };
             }
             {
               "Sonarr" = {
                 href = "http://${cfg.ip}:8989";
+                icon = "sh-sonarr";
               };
             }
             {
               "Bazarr" = {
                 href = "http://${cfg.ip}:6767";
+                icon = "sh-bazarr";
+              };
             }
             {
               "Readarr" = {
                 href = "http://${cfg.ip}:8787";
+                icon = "sh-readarr";
               };
             }
           ];
@@ -52,6 +58,7 @@ in
             {
               "Jellyfin" = {
                 href = "http://${cfg.ip}:8096";
+                icon = "sh-jellyfin";
               };
             }
           ];
@@ -61,6 +68,7 @@ in
             {
               "Deluge" = {
                 href = "http://${cfg.ip}:8112";
+                icon = "sh-deluge";
               };
             }
           ];
@@ -70,6 +78,7 @@ in
             {
               "Syncthing" = {
                 href = "http://${cfg.ip}:8384";
+                icon = "sh-syncthing";
               };
             }
           ];
