@@ -44,6 +44,11 @@ in
         max_active_downloading = 3;
         max_active_limit = 3;
         dont_count_slow_torrents = true;
+        stop_seed_at_ratio = true;
+        stop_seed_ratio = 0.00;
+        remove_seed_at_ratio = true;
+        share_ratio_limit = 0.00;
+        new_release_check = false;
         enabled_plugins = [ "Label" ];
       };
       authFile = pkgs.writeTextFile {
