@@ -82,14 +82,6 @@ in
                 description = "Subtitles manager";
               };
             }
-            {
-              "Readarr" = {
-                href = "http://${cfg.ip}:8787";
-                siteMonitor = "http://${cfg.ip}:8787";
-                icon = "sh-readarr";
-                description = "Ebook collection manager";
-              };
-            }
           ];
         }
         {

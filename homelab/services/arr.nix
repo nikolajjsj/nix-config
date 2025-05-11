@@ -50,7 +50,7 @@ in
       openFirewall = true;
     };
     services.readarr = {
-      enable = true;
+      enable = false;
       user = "${cfg.user}";
       openFirewall = true;
     };
