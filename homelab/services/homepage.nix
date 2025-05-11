@@ -12,8 +12,8 @@ in
       description = "IP address for homepage dashboard.";
     };
     port = mkOption {
-      type = types.int;
-      default = 8082;
+      type = types.str;
+      default = "8082";
       description = "Port for homepage dashboard.";
     };
   };
