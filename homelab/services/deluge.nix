@@ -39,10 +39,10 @@ in
         download_location = "/mnt/media/downloads/incomplete";
         move_completed = true;
         move_completed_path = "/mnt/media/downloads/completed";
-        max_connections_global = 75;
-        max_active_seeding = 3;
+        max_connections_global = 50;
+        max_active_seeding = 0;
         max_active_downloading = 3;
-        max_active_limit = 6;
+        max_active_limit = 3;
         dont_count_slow_torrents = true;
         stop_seed_at_ratio = true;
         stop_seed_ratio = 0.00;
