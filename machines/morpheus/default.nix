@@ -60,6 +60,7 @@ in
   homelab = {
     services = {
       arr.enable = true;
+      audiobookshelf.enable = true;
       deluge.enable = true;
       homepage.enable = true;
       jellyfin.enable = true;
