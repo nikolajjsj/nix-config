@@ -39,6 +39,10 @@ in
             {
               "Bazarr" = {
                 href = "http://${cfg.ip}:6767";
+            }
+            {
+              "Readarr" = {
+                href = "http://${cfg.ip}:8787";
               };
             }
           ];
