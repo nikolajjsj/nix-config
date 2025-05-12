@@ -35,6 +35,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    btop
     git
     lazygit
   ];
