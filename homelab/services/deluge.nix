@@ -36,9 +36,9 @@ in
       openFirewall = true;
       declarative = true;
       config = {
-        download_location = "/mnt/media/downloads/incomplete";
+        download_location = "/persist/downloads/incomplete";
         move_completed = true;
-        move_completed_path = "/mnt/media/downloads/completed";
+        move_completed_path = "/persist/downloads/completed";
         max_connections_global = 50;
         max_active_seeding = 0;
         max_active_downloading = 3;
