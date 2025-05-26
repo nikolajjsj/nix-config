@@ -1,4 +1,7 @@
-{ user, ... }: { config, lib, pkgs, ... }:
+{ pkgs, ... }:
+let
+  user = "darwin";
+in
 {
   imports = [
     ../../modules/neovim

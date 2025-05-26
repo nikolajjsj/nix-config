@@ -1,20 +1,20 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 let
   user = "darwin";
 in
 {
   imports = [
     ../common
-    inputs.home-manager.nixosModules.home-manager
+    inputs.home-manager.darwinModules.home-manager
   ];
+
+  nix.enable = false;
 
   users.users.${user} = {
     name = "${user}";
     home = "/Users/${user}";
-    isNormalUser = true;
     isHidden = false;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" ];
     ignoreShellProgramCheck = true;
     packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
   };
@@ -22,6 +22,6 @@ in
   home-manager = {
     useGlobalPkgs = true;
     backupFileExtension = "backup";
-    users.${user} = (import ./home.nix { user = user; });
+    users.${user} = (import ./home.nix { inherit pkgs inputs; user = user; });
   };
 }

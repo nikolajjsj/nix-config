@@ -12,6 +12,26 @@ in
       ../../homelab
     ];
 
+  nixpkgs = {
+    config.allowUnfree = true;
+  };
+  nix = {
+    settings = {
+      experimental-features = "nix-command flakes";
+      allowed-users = [ user ];
+      trusted-users = [
+        "@admin"
+        "root"
+        user
+      ];
+    };
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 30d";
+    };
+    optimise.automatic = true;
+  };
+
   networking = {
     hostId = "01823755";
     hostName = "morpheus";

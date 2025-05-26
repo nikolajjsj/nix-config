@@ -2,9 +2,14 @@
 let user = "darwin"; in
 {
   imports = [
-    ../common
     ../../home/${user}/${user}.nix
   ];
+
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+    };
+  };
 
   homebrew = {
     enable = true;
@@ -17,7 +22,7 @@ let user = "darwin"; in
     caskArgs = {
       no_quarantine = true;
     };
-    brews = [ "nvm" ];
+    brews = [ ];
     casks = [
       "dbngin"
       "docker"
