@@ -1,20 +1,22 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.homelab.services.homepage;
+  service = "homepage";
+  cfg = config.homelab.services.${service};
+  homelab = config.homelab;
 in
 {
-  options.homelab.services.homepage = {
-    enable = mkEnableOption "Enable Homepage Dashboard.";
+  options.homelab.services.${service} = {
+    enable = mkEnableOption "Enable ${service}.";
     ip = mkOption {
       type = types.str;
       default = "192.168.20.100";
-      description = "IP address for homepage dashboard.";
+      description = "IP address for ${service}.";
     };
     port = mkOption {
       type = types.str;
       default = "8082";
-      description = "Port for homepage dashboard.";
+      description = "Port for ${service}.";
     };
   };
 

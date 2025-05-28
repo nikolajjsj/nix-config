@@ -78,7 +78,12 @@ in
   };
 
   homelab = {
+    enable = true;
+    baseDomain = "morpheus.local";
+
     services = {
+      enable = true;
+
       arr.enable = true;
       audiobookshelf.enable = true;
       deluge.enable = true;

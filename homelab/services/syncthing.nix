@@ -1,19 +1,43 @@
-{ config, lib, ... }:
-with lib;
+{ config, pkgs, lib, ... }:
 let
-  cfg = config.homelab.services.syncthing;
+  service = "syncthing";
+  cfg = config.homelab.services.${service};
+  homelab = config.homelab;
 in
 {
-  options.homelab.services.syncthing.enable = mkEnableOption "Enable Syncthing.";
-
-  config = mkIf cfg.enable {
+  options.homelab.services.${service} = {
+    enable = lib.mkEnableOption {
+      description = "Enable ${service}";
+    };
+    url = lib.mkOption {
+      type = lib.types.str;
+      default = "${service}.${homelab.baseDomain}";
+    };
+    homepage.name = lib.mkOption {
+      type = lib.types.str;
+      default = "${lib.capitalize service}";
+    };
+    homepage.description = lib.mkOption {
+      type = lib.types.str;
+      default = "Syncthing is a continuous file synchronization program.";
+    };
+    homepage.icon = lib.mkOption {
+      type = lib.types.str;
+      default = "sh-${service}";
+    };
+    homepage.category = lib.mkOption {
+      type = lib.types.str;
+      default = "Services";
+    };
+  };
+  config = lib.mkIf cfg.enable {
     environment.persistence."/persist" = {
       directories = [
-        { directory = "/var/lib/syncthing"; user = "syncthing"; group = "syncthing"; }
+        { directory = "/var/lib/${service}"; user = "${service}"; group = "${service}"; }
       ];
     };
 
-    services.syncthing = {
+    services.${service} = {
       enable = true;
       guiAddress = "0.0.0.0:8384";
     };

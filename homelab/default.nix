@@ -1,3 +1,27 @@
+{ lib, config, ... }:
+let
+  cfg = config.homelab;
+in
 {
-  imports = [ ./services ];
+  options.homelab = {
+    enable = lib.mkEnableOption "The homelab services and configuration variables";
+    timeZone = lib.mkOption {
+      default = "Europe/Copenhagen";
+      type = lib.types.str;
+      description = ''
+        Time zone to be used for the homelab services
+      '';
+    };
+    baseDomain = lib.mkOption {
+      default = "";
+      type = lib.types.str;
+      description = ''
+        Base domain name to be used to access the homelab services via Caddy reverse proxy
+      '';
+    };
+  };
+
+  imports = [
+    ./services
+  ];
 }

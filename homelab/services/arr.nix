@@ -1,19 +1,21 @@
-{ config, lib, ... }:
-with lib;
+{ config, pkgs, lib, ... }:
 let
-  cfg = config.homelab.services.arr;
+  service = "arr";
+  cfg = config.homelab.services.${service};
+  homelab = config.homelab;
 in
 {
-  options.homelab.services.arr = {
-    enable = mkEnableOption "Enable Arr Stack.";
+  options.homelab.services.${service} = {
+    enable = lib.mkEnableOption {
+      description = "Enable ${service}";
+    };
     user = mkOption {
       type = types.str;
       default = "multimedia";
-      description = "User to run Arr services as.";
+      description = "User to run ${service} as.";
     };
   };
-
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     users.groups.${cfg.user} = { };
     users.users.${cfg.user} = {
       isSystemUser = true;

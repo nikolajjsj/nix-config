@@ -1,45 +1,56 @@
-{ config, lib, pkgs, ... }:
-with lib;
+{ config, pkgs, lib, ... }:
 let
-  cfg = config.homelab.services.jellyfin;
+  service = "jellyfin";
+  cfg = config.homelab.services.${service};
+  homelab = config.homelab;
 in
 {
-  options.homelab.services.jellyfin = {
-    enable = mkEnableOption "Enable Jellyfin.";
-    user = mkOption {
-      type = types.str;
-      default = "multimedia";
-      description = "User to run Jellyfin as.";
+  options.homelab.services.${service} = {
+    enable = lib.mkEnableOption {
+      description = "Enable ${service}";
+    };
+    url = lib.mkOption {
+      type = lib.types.str;
+      default = "jellyfin.${homelab.baseDomain}";
+    };
+    homepage.name = lib.mkOption {
+      type = lib.types.str;
+      default = "Jellyfin";
+    };
+    homepage.description = lib.mkOption {
+      type = lib.types.str;
+      default = "The Free Software Media System";
+    };
+    homepage.icon = lib.mkOption {
+      type = lib.types.str;
+      default = "sh-jellyfin";
+    };
+    homepage.category = lib.mkOption {
+      type = lib.types.str;
+      default = "Media";
     };
   };
-
-  config = mkIf cfg.enable {
-    users.groups.${cfg.user} = { };
-    users.users.${cfg.user} = {
-      isSystemUser = true;
-      group = "${cfg.user}";
+  config = lib.mkIf cfg.enable {
+    services.${service} = {
+      enable = true;
+      user = "${cfg.user}";
+      openFirewall = true;
     };
 
+    # Jellyfin persistence
     environment.persistence."/persist" = {
       directories = [
         { directory = "/var/lib/jellyfin"; user = "${cfg.user}"; group = "jellyfin"; }
       ];
     };
 
-    services.jellyfin = {
-      enable = true;
-      user = "${cfg.user}";
-      openFirewall = true;
-    };
-
+    # Jellyfin hardware acceleration
     environment.systemPackages = with pkgs; [
       intel-gpu-tools
       pkgs.jellyfin
       pkgs.jellyfin-web
       pkgs.jellyfin-ffmpeg
     ];
-
-    # Jellyfin hardware acceleration
     systemd.services.jellyfin.environment.LIBVA_DRIVER_NAME = "iHD";
     environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
     hardware.graphics = {

@@ -1,19 +1,41 @@
-{ config, lib, pkgs, ... }:
-with lib;
+{ config, pkgs, lib, ... }:
 let
-  cfg = config.homelab.services.audiobookshelf;
+  service = "audiobookshelf";
+  cfg = config.homelab.services.${service};
+  homelab = config.homelab;
 in
 {
-  options.homelab.services.audiobookshelf = {
-    enable = mkEnableOption "Enable Audiobookshelf.";
+  options.homelab.services.${service} = {
+    enable = lib.mkEnableOption {
+      description = "Enable ${service}";
+    };
     user = mkOption {
       type = types.str;
       default = "multimedia";
-      description = "User to run Audiobookshelf as.";
+      description = "User to run ${service} as.";
+    };
+    url = lib.mkOption {
+      type = lib.types.str;
+      default = "${service}.${homelab.baseDomain}";
+    };
+    homepage.name = lib.mkOption {
+      type = lib.types.str;
+      default = "${lib.capitalize service}";
+    };
+    homepage.description = lib.mkOption {
+      type = lib.types.str;
+      default = "Audiobookshelf is a self-hosted book/audiobook server.";
+    };
+    homepage.icon = lib.mkOption {
+      type = lib.types.str;
+      default = "sh-${service}";
+    };
+    homepage.category = lib.mkOption {
+      type = lib.types.str;
+      default = "Media";
     };
   };
-
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     users.groups.${cfg.user} = { };
     users.users.${cfg.user} = {
       isSystemUser = true;
@@ -22,11 +44,11 @@ in
 
     environment.persistence."/persist" = {
       directories = [
-        { directory = "/var/lib/audiobookshelf"; user = "${cfg.user}"; group = "audiobookshelf"; }
+        { directory = "/var/lib/audiobookshelf"; user = "${cfg.user}"; group = "${service}"; }
       ];
     };
 
-    services.audiobookshelf = {
+    services.${service} = {
       enable = true;
       user = "${cfg.user}";
       host = "0.0.0.0";

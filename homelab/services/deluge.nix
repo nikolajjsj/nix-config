@@ -1,19 +1,41 @@
-{ config, lib, pkgs, ... }:
-with lib;
+{ config, pkgs, lib, ... }:
 let
-  cfg = config.homelab.services.deluge;
+  service = "deluge";
+  cfg = config.homelab.services.${service};
+  homelab = config.homelab;
 in
 {
-  options.homelab.services.deluge = {
-    enable = mkEnableOption "Enable Deluge.";
+  options.homelab.services.${service} = {
+    enable = lib.mkEnableOption {
+      description = "Enable ${service}";
+    };
     user = mkOption {
       type = types.str;
       default = "multimedia";
-      description = "User to run Deluge as.";
+      description = "User to run ${service} as.";
+    };
+    url = lib.mkOption {
+      type = lib.types.str;
+      default = "${service}.${homelab.baseDomain}";
+    };
+    homepage.name = lib.mkOption {
+      type = lib.types.str;
+      default = "${lib.capitalize service}";
+    };
+    homepage.description = lib.mkOption {
+      type = lib.types.str;
+      default = "Deluge is a lightweight, Free Software, cross-platform BitTorrent client.";
+    };
+    homepage.icon = lib.mkOption {
+      type = lib.types.str;
+      default = "sh-${service}";
+    };
+    homepage.category = lib.mkOption {
+      type = lib.types.str;
+      default = "Downloads";
     };
   };
-
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     users.groups.${cfg.user} = { };
     users.users.${cfg.user} = {
       isSystemUser = true;
