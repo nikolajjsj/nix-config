@@ -9,6 +9,11 @@ in
     enable = lib.mkEnableOption {
       description = "Enable ${service}";
     };
+    user = lib.mkOption {
+      type = lib.types.str;
+      default = "multimedia";
+      description = "User to run ${service} as.";
+    };
     url = lib.mkOption {
       type = lib.types.str;
       default = "jellyfin.${homelab.baseDomain}";

@@ -9,8 +9,8 @@ in
     enable = lib.mkEnableOption {
       description = "Enable ${service}";
     };
-    user = mkOption {
-      type = types.str;
+    user = lib.mkOption {
+      type = lib.types.str;
       default = "multimedia";
       description = "User to run ${service} as.";
     };
