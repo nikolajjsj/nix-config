@@ -8,7 +8,7 @@ in
     [
       ./disko.nix
       ./hardware-configuration.nix
-      ../../home/${user}/${user}.nix
+      ../../home/${user}
       ../../homelab
     ];
 

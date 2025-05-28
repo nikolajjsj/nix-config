@@ -1,8 +1,10 @@
 { config, lib, pkgs, home-manager, ... }:
-let user = "darwin"; in
+let
+  user = "darwin";
+in
 {
   imports = [
-    ../../home/${user}/${user}.nix
+    ../../home/${user}
   ];
 
   nixpkgs = {
