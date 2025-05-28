@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 let
   user = "neo";
-  mediaUser = "multimedia";
 in
 {
   imports =
