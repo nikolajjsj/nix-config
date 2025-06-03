@@ -21,6 +21,7 @@ in
     username = "${user}";
     homeDirectory = "/Users/${user}";
     packages = with pkgs; [
+      fd
       go
       gopls
       goose
