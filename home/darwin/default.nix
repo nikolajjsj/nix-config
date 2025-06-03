@@ -10,6 +10,7 @@ in
 
   nix.enable = false;
 
+  system.primaryUser = user;
   users.users.${user} = {
     name = "${user}";
     home = "/Users/${user}";
