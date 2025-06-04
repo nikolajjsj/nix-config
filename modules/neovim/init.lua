@@ -160,30 +160,14 @@ rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  {
+    'NMAC427/guess-indent.nvim',
+    opts = {},
+  }, -- Detect tabstop and shiftwidth automatically
 
-  -- NOTE: Plugins can also be added by using a table,
-  -- with the first argument being the link and the following
-  -- keys can be used to configure plugin behavior/loading/etc.
-  --
-  -- Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
-  --
-
-  -- Alternatively, use `config = function() ... end` for full control over the configuration.
-  -- If you prefer to call `setup` explicitly, use:
-  --    {
-  --        'lewis6991/gitsigns.nvim',
-  --        config = function()
-  --            require('gitsigns').setup({
-  --                -- Your gitsigns configuration here
-  --            })
-  --        end,
-  --    }
-  --
   {
     'lewis6991/gitsigns.nvim',
-    event = 'LazyFile',
+    event = 'VeryLazy',
     opts = {
       signs = {
         add = { text = '▎' },
@@ -255,7 +239,7 @@ require('lazy').setup({
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
-    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
+    event = 'VeryLazy', -- Sets the loading event to 'VimEnter'
     opts = {
       -- delay between pressing a key and opening which-key (milliseconds)
       -- this setting is independent of vim.o.timeoutlen
@@ -294,46 +278,6 @@ require('lazy').setup({
           F10 = '<F10>',
           F11 = '<F11>',
           F12 = '<F12>',
-        },
-      },
-
-      -- Document existing key chains
-      spec = {
-        {
-          mode = { 'n', 'v' },
-          { '<leader><tab>', group = 'tabs' },
-          { '<leader>c', group = 'code' },
-          { '<leader>d', group = 'debug' },
-          { '<leader>dp', group = 'profiler' },
-          { '<leader>f', group = 'file/find' },
-          { '<leader>g', group = 'git' },
-          { '<leader>gh', group = 'hunks' },
-          { '<leader>q', group = 'quit/session' },
-          { '<leader>s', group = 'search' },
-          { '<leader>u', group = 'ui', icon = { icon = '󰙵 ', color = 'cyan' } },
-          { '<leader>x', group = 'diagnostics/quickfix', icon = { icon = '󱖫 ', color = 'green' } },
-          { '[', group = 'prev' },
-          { ']', group = 'next' },
-          { 'g', group = 'goto' },
-          { 'gs', group = 'surround' },
-          { 'z', group = 'fold' },
-          {
-            '<leader>b',
-            group = 'buffer',
-            expand = function()
-              return require('which-key.extras').expand.buf()
-            end,
-          },
-          {
-            '<leader>w',
-            group = 'windows',
-            proxy = '<c-w>',
-            expand = function()
-              return require('which-key.extras').expand.win()
-            end,
-          },
-          -- better descriptions
-          { 'gx', desc = 'Open with system app' },
         },
       },
     },
@@ -421,7 +365,6 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
@@ -701,7 +644,56 @@ require('lazy').setup({
             },
           },
         },
-        ts_ls = {},
+        ts_ls = {
+          enabled = false,
+        },
+        vtsls = {
+          -- explicitly add default filetypes, so that we can extend
+          -- them in related extras
+          filetypes = {
+            'javascript',
+            'javascriptreact',
+            'javascript.jsx',
+            'typescript',
+            'typescriptreact',
+            'typescript.tsx',
+          },
+          settings = {
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                maxInlayHintLength = 30,
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                },
+              },
+            },
+            typescript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                parameterNames = { enabled = 'literals' },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = false },
+              },
+            },
+          },
+        },
+        tailwindcss = {
+          -- exclude a filetype from the default_config
+          filetypes_exclude = { 'markdown' },
+          -- add additional filetypes to the default_config
+          filetypes_include = {},
+          -- to fully override the default_config, change the below
+          -- filetypes = {}
+        },
         eslint = {
           settings = {
             workingDirectories = { mode = 'auto' },
@@ -791,11 +783,13 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        go = { 'goimports', 'gofmt' },
+        javascript = { 'prettierd', 'prettier', 'biome', stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', 'biome', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', 'biome', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', 'biome', stop_after_first = true },
+        html = { 'prettierd', 'prettier' },
+        css = { 'prettierd', 'prettier' },
       },
     },
   },
@@ -809,26 +803,6 @@ require('lazy').setup({
       {
         'L3MON4D3/LuaSnip',
         version = '2.*',
-        build = (function()
-          -- Build Step is needed for regex support in snippets.
-          -- This step is not supported in many windows environments.
-          -- Remove the below condition to re-enable on windows.
-          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
-            return
-          end
-          return 'make install_jsregexp'
-        end)(),
-        dependencies = {
-          -- `friendly-snippets` contains a variety of premade snippets.
-          --    See the README about individual language/framework/plugin snippets:
-          --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
-        },
         opts = {},
       },
       'folke/lazydev.nvim',
@@ -858,7 +832,7 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'super-tab',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -1035,7 +1009,7 @@ require('lazy').setup({
   },
   {
     'windwp/nvim-ts-autotag',
-    event = 'LazyFile',
+    event = 'VeryLazy',
     opts = {},
   },
 
@@ -1044,6 +1018,7 @@ require('lazy').setup({
     event = 'VeryLazy',
     keys = {
       { '<leader>bp', '<Cmd>BufferLineTogglePin<CR>', desc = 'Toggle Pin' },
+      { '<leader>bd', ':bd<CR>', desc = 'Delete Buffer' },
       { '<leader>bP', '<Cmd>BufferLineGroupClose ungrouped<CR>', desc = 'Delete Non-Pinned Buffers' },
       { '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete Buffers to the Right' },
       { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the Left' },
@@ -1053,27 +1028,6 @@ require('lazy').setup({
       { ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
       { '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move buffer prev' },
       { ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move buffer next' },
-    },
-    opts = {
-      options = {
-      -- stylua: ignore
-      close_command = function(n) Snacks.bufdelete(n) end,
-      -- stylua: ignore
-      right_mouse_command = function(n) Snacks.bufdelete(n) end,
-        diagnostics = 'nvim_lsp',
-        always_show_bufferline = false,
-        offsets = {
-          {
-            filetype = 'neo-tree',
-            text = 'Neo-tree',
-            highlight = 'Directory',
-            text_align = 'left',
-          },
-          {
-            filetype = 'snacks_layout_box',
-          },
-        },
-      },
     },
     config = function(_, opts)
       require('bufferline').setup(opts)
@@ -1094,20 +1048,19 @@ require('lazy').setup({
     opts = {},
   },
 
+  { 'giuxtaposition/blink-cmp-copilot' },
   {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     build = ':Copilot auth',
-    event = 'BufReadPost',
+    event = 'InsertEnter',
     opts = {
       suggestion = {
-        enabled = not vim.g.ai_cmp,
+        enabled = true,
         auto_trigger = true,
         hide_during_completion = vim.g.ai_cmp,
         keymap = {
-          accept = false, -- handled by nvim-cmp / blink.cmp
-          next = '<M-]>',
-          prev = '<M-[>',
+          accept = '<CR>',
         },
       },
       panel = { enabled = false },
@@ -1119,74 +1072,26 @@ require('lazy').setup({
   },
 
   {
-    'ThePrimeagen/harpoon',
-    branch = 'harpoon2',
-    opts = {
-      menu = {
-        width = vim.api.nvim_win_get_width(0) - 4,
-      },
-      settings = {
-        save_on_toggle = true,
-      },
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons',
+      'MunifTanjim/nui.nvim',
     },
-    keys = function()
-      local keys = {
-        {
-          '<leader>H',
-          function()
-            require('harpoon'):list():add()
-          end,
-          desc = 'Harpoon File',
-        },
-        {
-          '<leader>h',
-          function()
-            local harpoon = require 'harpoon'
-            harpoon.ui:toggle_quick_menu(harpoon:list())
-          end,
-          desc = 'Harpoon Quick Menu',
+    config = function()
+      require('neo-tree').setup {
+        auto_close = true,
+        filesystem = {
+          filtered_items = {
+            visible = true,
+          },
         },
       }
 
-      for i = 1, 5 do
-        table.insert(keys, {
-          '<leader>' .. i,
-          function()
-            require('harpoon'):list():select(i)
-          end,
-          desc = 'Harpoon to File ' .. i,
-        })
-      end
-      return keys
+      vim.keymap.set('n', '<C-n>', '<Cmd>Neotree toggle<CR>', { desc = 'Open NeoTree' })
     end,
   },
-
-  -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
-  -- init.lua. If you want these files, they are in the repository, so you can just download them and
-  -- place them in the correct locations.
-
-  -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
-  --
-  --  Here are some example plugins that I've included in the Kickstart repository.
-  --  Uncomment any of the lines below to enable them (you will need to restart nvim).
-  --
-  -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
-
-  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    This is the easiest way to modularize your config.
-  --
-  --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
-  --
-  -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
-  -- Or use telescope!
-  -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
-  -- you can continue same window with `<space>sr` which resumes last telescope search
 
   {
     'MagicDuck/grug-far.nvim',
