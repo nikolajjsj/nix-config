@@ -3,7 +3,6 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+    extraLuaConfig = lib.fileContents ./init.lua;
   };
-
-  xdg.configFile.nvim.source = ./dotfiles;
 }
