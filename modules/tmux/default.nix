@@ -6,13 +6,15 @@
   programs.tmux = {
     enable = true;
     sensibleOnTop = true;
+    keyMode = "vi";
+    terminal = "tmux-256color";
+    historyLimit = 50000;
     extraConfig = ''
       # Leader key
       set -g prefix C-s
 
       # Default terminal
-      set -g default-terminal "xterm-256color"
-      set -ag terminal-overrides ",xterm-256color:RGB"
+      set-option -ga terminal-overrides ",*:Tc"
       set-option -g default-shell ${pkgs.zsh}/bin/zsh
       set -g default-command ${pkgs.zsh}/bin/zsh
 
