@@ -27,6 +27,7 @@ in
       goose
       ripgrep
       nodejs
+      lazygit
       pnpm
     ];
   };
