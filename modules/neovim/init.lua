@@ -1079,18 +1079,23 @@ require('lazy').setup({
       'nvim-tree/nvim-web-devicons',
       'MunifTanjim/nui.nvim',
     },
+    lazy = false,
     config = function()
-      require('neo-tree').setup {
-        auto_close = true,
-        filesystem = {
-          filtered_items = {
-            visible = true,
-          },
-        },
-      }
-
       vim.keymap.set('n', '<C-n>', '<Cmd>Neotree toggle<CR>', { desc = 'Open NeoTree' })
     end,
+    ---@module "neo-tree"
+    ---@type neotree.Config?
+    opts = {
+      close_if_last_window = true,
+      filters = {
+        dotfiles = true, -- Show dotfiles
+        custom = {
+          { pattern = '\\.git$', disabled = true }, -- Disable .git files
+          { pattern = '\\.vscode$', disabled = true }, -- Disable .vscode files
+          { pattern = 'node_modules', disabled = true }, -- Disable node_modules
+        },
+      },
+    },
   },
 
   {
