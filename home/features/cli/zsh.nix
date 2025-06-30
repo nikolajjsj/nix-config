@@ -15,6 +15,7 @@ in
       history.size = 10000;
       initContent = ''
         PS1='%F{blue}%B%~%b%f %F{green}❯%f '
+        eval "$(fnm env --use-on-cd --shell zsh)"
       '';
 
       shellAliases = {

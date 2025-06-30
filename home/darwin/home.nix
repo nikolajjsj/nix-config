@@ -22,11 +22,11 @@ in
     homeDirectory = "/Users/${user}";
     packages = with pkgs; [
       fd
+      fnm
       go
       gopls
       goose
       ripgrep
-      nodejs_24
       lazygit
       pnpm
     ];
