@@ -26,7 +26,7 @@ in
       gopls
       goose
       ripgrep
-      nodejs
+      nodejs_24
       lazygit
       pnpm
     ];
