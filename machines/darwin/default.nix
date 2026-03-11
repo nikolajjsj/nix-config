@@ -26,14 +26,9 @@ in
     };
     brews = [ ];
     casks = [
-      "dbngin"
-      "docker"
       "ghostty"
       "google-chrome"
       "slack"
-      "syncthing"
-      "tableplus"
-      "tailscale"
     ];
     masApps = {
       "amphetamine" = 937984704;

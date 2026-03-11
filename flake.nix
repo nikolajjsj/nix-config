@@ -52,6 +52,18 @@
             impermanence.nixosModules.impermanence
           ];
         };
+
+        neo = lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./machines/neo/default.nix
+            home-manager.nixosModules.home-manager
+            impermanence.nixosModules.impermanence
+          ];
+        };
       };
     };
 }

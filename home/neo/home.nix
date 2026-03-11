@@ -4,19 +4,13 @@ let
 in
 {
   imports = [
-    ../../modules/neovim
-    ../features/cli
+    ../../dots/zsh
+    ../../dots/tmux
+    ../../dots/neofetch
   ];
 
-  features = {
-    cli = {
-      zsh.enable = true;
-      fzf.enable = true;
-    };
-  };
-
   home = {
-    stateVersion = "24.11";
+    stateVersion = "25.11";
     username = "${user}";
     homeDirectory = "/home/${user}";
     packages = [ ];
