@@ -30,6 +30,12 @@ in
     optimise.automatic = true;
   };
 
+  boot.loader.grub = {
+    enable = true;
+    devices = [ "/dev/sda" ];
+    useOSProber = true;
+  };
+
   networking = {
     hostId = "01823755";
     hostName = user;
@@ -47,9 +53,7 @@ in
     services = {
       enable = true;
 
-      uptime-kuma = {
-        enable = true;
-      };
+      uptime-kuma.enable = true;
     };
   };
 
