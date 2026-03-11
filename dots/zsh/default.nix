@@ -33,28 +33,18 @@
       };
       shellAliases = {
         ipp = "curl ipinfo.io/ip";
-        nv='nvim'
+        nv = "nvim";
         la = "ls --color -lha";
-        ll='eza -l -g --icons --git'
-        lla='ll -a'
-        reload='source ~/.zshrc' # reloads current sessions
-        :q='exit' # Exit like vim
-        lg='lazygit'
-        # Git aliases
-        gs='git status' # Shows the current git status
-        ga='git add' # Add files for a git commit
-        gA='git add .' # Adds all changed files for the next commit
-        gc='git commit' # Uses default editor for a commit message
-        gcne='git commit --amend --no-edit' # Amends to previous commit
-        gac='gA && gc' # Combination of adding all recent changes and git commit
+        ll = "eza -l -g --icons --git";
+        lla = "ll -a";
+        reload = "source ~/.zshrc"; # reloads current sessions
+        :q = "exit"; # Exit like vim
+        lg = "lazygit";
         # Tmux aliases
-        t='tmux'
-        ta='tmux attach -t'
-        tl='tmux ls'
-        tk='tmux kill-session -t'
-        t-work='tmux new-session -A -s work'
-        z-work='zellij a work'
-        t-dev='tmux new-session -A -s personal'
+        t = "tmux";
+        ta = "tmux attach -t";
+        tl = "tmux ls";
+        tk = "tmux kill-session -t";
       };
 
       initContent = ''
