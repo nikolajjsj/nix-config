@@ -38,7 +38,6 @@
         ll = "eza -l -g --icons --git";
         lla = "ll -a";
         reload = "source ~/.zshrc"; # reloads current sessions
-        :q = "exit"; # Exit like vim
         lg = "lazygit";
         # Tmux aliases
         t = "tmux";
