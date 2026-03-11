@@ -1,5 +1,5 @@
 {
-  description = "My homelab configurations";
+  description = "My Homelab configurations";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -21,15 +21,15 @@
   outputs = inputs@{ self, nix-darwin, home-manager, disko, impermanence, nixpkgs }:
     let
       lib = nixpkgs.lib;
+      darwinSystem = "aarch64-darwin";
+      nixosSystem = "x86_64-linux";
     in
     {
-      # General configurations
       nixpkgs.config.allowUnfree = true;
 
-      # System specific configurations
       darwinConfigurations = {
         darwin = inputs.nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
+          system = darwinSystem;
           specialArgs = {
             inherit inputs;
           };
@@ -39,22 +39,10 @@
           ];
         };
       };
-      nixosConfigurations = {
-        morpheus = lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            ./machines/morpheus/default.nix
-            home-manager.nixosModules.home-manager
-            disko.nixosModules.disko
-            impermanence.nixosModules.impermanence
-          ];
-        };
 
+      nixosConfigurations = {
         neo = lib.nixosSystem {
-          system = "x86_64-linux";
+          system = nixosSystem;
           specialArgs = {
             inherit inputs;
           };
