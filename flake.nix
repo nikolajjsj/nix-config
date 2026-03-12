@@ -2,56 +2,54 @@
   description = "My Homelab configurations";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs = {
+      url = "github:nixos/nixpkgs/nixos-25.11";
+    };
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     disko = {
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "github:LnL7/nix-darwin/nix-darwin-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    impermanence.url = "github:nix-community/impermanence";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, home-manager, disko, impermanence, nixpkgs }:
-    let
-      lib = nixpkgs.lib;
-      darwinSystem = "aarch64-darwin";
-      nixosSystem = "x86_64-linux";
-    in
-    {
-      nixpkgs.config.allowUnfree = true;
-
-      darwinConfigurations = {
-        darwin = inputs.nix-darwin.lib.darwinSystem {
-          system = darwinSystem;
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            ./machines/darwin/default.nix
-            home-manager.darwinModules.home-manager
-          ];
-        };
-      };
-
-      nixosConfigurations = {
-        neo = lib.nixosSystem {
-          system = nixosSystem;
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            ./machines/neo/default.nix
-            home-manager.nixosModules.home-manager
-            impermanence.nixosModules.impermanence
-          ];
-        };
-      };
-    };
+  outputs =
+    inputs@{ ... }:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      { ... }:
+      {
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+          "aarch64-darwin"
+        ];
+        imports = [
+          ./machines/darwin
+          ./machines/nixos
+        ];
+        _module.args.rootPath = ./.;
+      }
+    );
 }

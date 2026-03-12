@@ -1,89 +1,54 @@
-{ config, lib, pkgs, home-manager, ... }:
+{lib, self, ...}:
 let
-  user = "darwin";
+  user = "neo";
+  entries = builtins.attrNames (builtins.readDir ./.);
+  configs = builtins.filter (dir: builtins.pathExists (./. + "/${dir}/configuration.nix")) entries;
+  homeManagerCfg = userPackages: {
+    home-manager.useGlobalPkgs = false;
+    home-manager.extraSpecialArgs = {
+      inherit (self) inputs;
+    };
+    home-manager.users.${user}.imports = [
+      self.inputs.agenix.homeManagerModules.default
+      self.inputs.nix-index-database.homeModules.nix-index
+      ../../users/${user}/dots.nix
+      ../../users/${user}/age.nix
+      ../../dots/tmux
+      ../../dots/ghostty
+      ../../dots/neovim
+      ../../dots/zsh
+    ];
+    home-manager.backupFileExtension = "bak";
+    home-manager.useUserPackages = userPackages;
+  };
 in
 {
-  imports = [
-    ../../home/${user}
-  ];
+  flake.darwinConfigurations = lib.listToAttrs (
+    builtins.map (
+      name:
+      lib.nameValuePair name (
+        self.inputs.nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = {
+            inherit (self) inputs;
+            self = {
+              darwinModules = self.darwinModules;
+            };
+          };
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
-
-  homebrew = {
-    enable = true;
-    onActivation = {
-      autoUpdate = true;
-      cleanup = "uninstall";
-      upgrade = true;
-    };
-    brewPrefix = "/opt/homebrew/bin";
-    caskArgs = {
-      no_quarantine = true;
-    };
-    brews = [ ];
-    casks = [
-      "ghostty"
-      "google-chrome"
-      "slack"
-    ];
-    masApps = {
-      "amphetamine" = 937984704;
-      "wireguard" = 1451685025;
-    };
-  };
-
-  system = {
-    stateVersion = 4;
-
-    defaults = {
-      LaunchServices = {
-        LSQuarantine = false;
-      };
-
-      NSGlobalDomain = {
-        AppleShowAllExtensions = true;
-        ApplePressAndHoldEnabled = false;
-
-        # 120, 90, 60, 30, 12, 6, 2
-        KeyRepeat = 2;
-
-        # 120, 94, 68, 35, 25, 15
-        InitialKeyRepeat = 15;
-
-        "com.apple.mouse.tapBehavior" = 1;
-        "com.apple.sound.beep.volume" = 0.0;
-        "com.apple.sound.beep.feedback" = 0;
-      };
-
-      dock = {
-        autohide = true;
-        mru-spaces = false;
-        show-recents = false;
-        orientation = "bottom";
-        tilesize = 48;
-      };
-
-      finder = {
-        AppleShowAllExtensions = true;
-        ShowStatusBar = true;
-      };
-
-      trackpad = {
-        Clicking = true;
-        TrackpadThreeFingerDrag = true;
-      };
-    };
-
-    keyboard = {
-      enableKeyMapping = true;
-      remapCapsLockToEscape = true;
-    };
-  };
-
-  # Enable touch ID for sudo
-  security.pam.services.sudo_local.touchIdAuth = true;
+          modules = [
+            self.inputs.agenix.darwinModules.default
+            self.inputs.home-manager.darwinModules.home-manager
+            (./. + "/common/default.nix")
+            (./. + "/${name}/configuration.nix")
+            (self.inputs.nixpkgs.lib.attrsets.recursiveUpdate (homeManagerCfg true) {
+              home-manager.users.${user}.home.homeDirectory =
+                self.inputs.nixpkgs.lib.mkForce "/Users/${user}";
+            })
+          ];
+        }
+      )
+    ) configs
+  );
 }
+
